@@ -15,11 +15,18 @@ public class JwtTokenGenerator(IOptions<JwtOptions> options) : IJwtTokenGenerato
 
     public string GenerateAccessToken(User user)
     {
+        var fullName = $"{user.FirstName} {user.LastName}".Trim();
+
         var claims = new List<Claim>
         {
-            new(CustomClaims.Id,   user.Id.ToString()),
-            new(CustomClaims.Role, user.Role.ToString()),
-            new(ClaimTypes.Role,   user.Role.ToString()),
+            new(CustomClaims.Id,        user.Id.ToString()),
+            new(CustomClaims.Role,      user.Role.ToString()),
+            new(ClaimTypes.Role,        user.Role.ToString()),
+            new(CustomClaims.Username,  user.Username),
+            new(CustomClaims.FirstName, user.FirstName),
+            new(CustomClaims.LastName,  user.LastName),
+            new(CustomClaims.FullName,  fullName),
+            new(ClaimTypes.Name,        fullName),
         };
 
         var key         = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey));

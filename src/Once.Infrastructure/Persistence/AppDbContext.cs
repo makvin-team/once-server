@@ -1,5 +1,6 @@
 ﻿using Once.Domain.Entities;
 using Once.Domain.Entities.Common;
+using Once.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Once.Infrastructure.Persistence;
@@ -13,8 +14,12 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<User>         Users         { get; set; }
-    public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<User>          Users          { get; set; }
+    public DbSet<RefreshToken>  RefreshTokens  { get; set; }
+    public DbSet<FraudScenario> FraudScenarios { get; set; }
+    public DbSet<FraudAttempt>  FraudAttempts  { get; set; }
+    public DbSet<Branch>        Branches       { get; set; }
+    public DbSet<Position>      Positions      { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -56,6 +61,46 @@ public class AppDbContext : DbContext
                 .Entity(helperType.ClrType)
                 .HasKey(nameof(ReferenceModelBase<long>.Id));
         }
+
+        #endregion
+
+        #region FraudAttempt configuration
+
+        modelBuilder.Entity<FraudAttempt>()
+            .HasOne(a => a.Scenario)
+            .WithMany(s => s.Attempts)
+            .HasForeignKey(a => a.ScenarioId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<FraudAttempt>()
+            .HasOne(a => a.User)
+            .WithMany()
+            .HasForeignKey(a => a.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        #endregion
+
+        #region Branch + Position configuration
+
+        modelBuilder.Entity<Branch>()
+            .HasIndex(b => b.Code)
+            .IsUnique();
+
+        modelBuilder.Entity<Position>()
+            .HasIndex(p => p.Code)
+            .IsUnique();
+
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Branch)
+            .WithMany(b => b.Users)
+            .HasForeignKey(u => u.BranchId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Position)
+            .WithMany(p => p.Users)
+            .HasForeignKey(u => u.PositionId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         #endregion
 

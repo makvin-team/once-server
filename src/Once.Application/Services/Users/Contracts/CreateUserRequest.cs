@@ -8,5 +8,7 @@ public record CreateUserRequest(
     string   FirstName,
     string   LastName,
     EnumRole Role,
-    string?  PhoneNumber
+    string?  PhoneNumber,
+    long?    BranchId,
+    long?    PositionId
 );

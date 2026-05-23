@@ -15,12 +15,24 @@ namespace Once.Domain.Enums;
 
 public enum EnumPermission
 {
-    // Users 
+    // Users
     [Category(nameof(EnumPermissionGroup.Users))]
     CreateUser = 1001,
     ViewUser,
     EditUser,
     DeleteUser,
-    
-    
+
+    // Branches
+    [Category(nameof(EnumPermissionGroup.Branches))]
+    CreateBranch = 2001,
+    ViewBranch,
+    EditBranch,
+    DeleteBranch,
+
+    // Positions
+    [Category(nameof(EnumPermissionGroup.Positions))]
+    CreatePosition = 3001,
+    ViewPosition,
+    EditPosition,
+    DeletePosition,
 }
