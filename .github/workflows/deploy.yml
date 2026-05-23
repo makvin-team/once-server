@@ -39,7 +39,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GH_TOKEN }}
 
       - id: meta
         uses: docker/metadata-action@v5
@@ -93,7 +93,7 @@ jobs:
               || docker network create ${{ env.NETWORK }}
 
             # Auth + pull
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            echo "${{ secrets.GH_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             docker pull "$IMAGE"
 
             # Write the APP_ENV secret to a tmpfs file, mount via --env-file,
