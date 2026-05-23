@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -10,6 +11,8 @@ public sealed class AiBackendBroker(HttpClient httpClient) : IAiBackendBroker
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
         PropertyNameCaseInsensitive = true,
     };
+
+    private const string KnowledgeCollection = "knowledge_base";
 
     public async Task<HttpResponseMessage> OpenChatStreamAsync(
         AiChatStreamRequest request, CancellationToken ct)
@@ -43,4 +46,34 @@ public sealed class AiBackendBroker(HttpClient httpClient) : IAiBackendBroker
         var response = await httpClient.DeleteAsync($"conversations/{conversationId}", ct);
         response.EnsureSuccessStatusCode();
     }
+
+    public async Task<AiDocumentDto> UploadDocumentAsync(
+        Stream content, string fileName, string contentType, CancellationToken ct)
+    {
+        using var form = new MultipartFormDataContent();
+        var fileContent = new StreamContent(content);
+        if (!string.IsNullOrWhiteSpace(contentType))
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+        form.Add(fileContent, "file", fileName);
+        form.Add(new StringContent(KnowledgeCollection), "collection_name");
+
+        var response = await httpClient.PostAsync("documents/upload-file", form, ct);
+        response.EnsureSuccessStatusCode();
+        var dto = await response.Content.ReadFromJsonAsync<AiDocumentDto>(Json, ct);
+        return dto ?? throw new HttpRequestException("Empty document response from ai-backend");
+    }
+
+    public async Task<AiPaged<AiDocumentDto>> GetDocumentsAsync(
+        string? embeddingStatus, int limit, CancellationToken ct)
+    {
+        var url = $"documents?limit={limit}";
+        if (!string.IsNullOrWhiteSpace(embeddingStatus))
+            url += $"&embedding_status={Uri.EscapeDataString(embeddingStatus)}";
+        return await httpClient.GetFromJsonAsync<AiPaged<AiDocumentDto>>(url, Json, ct)
+               ?? new AiPaged<AiDocumentDto>();
+    }
+
+    public async Task<AiDocumentStatsDto> GetDocumentStatsAsync(CancellationToken ct)
+        => await httpClient.GetFromJsonAsync<AiDocumentStatsDto>("documents/stats", Json, ct)
+           ?? new AiDocumentStatsDto();
 }

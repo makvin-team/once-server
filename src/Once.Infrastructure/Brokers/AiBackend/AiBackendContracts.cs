@@ -44,3 +44,26 @@ public sealed record AiMessageDto
     public JsonElement? RegulatorySources { get; init; }
     public DateTime    CreatedAt          { get; init; }
 }
+
+/// <summary>ai-backend DocumentResponse (subset the knowledge page needs).</summary>
+public sealed record AiDocumentDto
+{
+    public Guid     Id              { get; init; }
+    public string   Filename        { get; init; } = string.Empty;
+    public string?  ContentType     { get; init; }
+    public long     Size            { get; init; }
+    public string   EmbeddingStatus { get; init; } = string.Empty;
+    public int?     ChunksCount     { get; init; }
+    public string?  CollectionName  { get; init; }
+    public DateTime CreatedAt       { get; init; }
+}
+
+/// <summary>ai-backend DocumentStatsResponse.</summary>
+public sealed record AiDocumentStatsDto
+{
+    public int Total      { get; init; }
+    public int Pending    { get; init; }
+    public int Processing { get; init; }
+    public int Embedded   { get; init; }
+    public int Failed     { get; init; }
+}

@@ -10,4 +10,11 @@ public interface IAiBackendBroker
     Task<AiPaged<AiMessageDto>> GetMessagesAsync(Guid conversationId, CancellationToken ct);
 
     Task DeleteConversationAsync(Guid conversationId, CancellationToken ct);
+
+    /// <summary>Uploads a document into the knowledge_base collection. Streams the content.</summary>
+    Task<AiDocumentDto> UploadDocumentAsync(Stream content, string fileName, string contentType, CancellationToken ct);
+
+    Task<AiPaged<AiDocumentDto>> GetDocumentsAsync(string? embeddingStatus, int limit, CancellationToken ct);
+
+    Task<AiDocumentStatsDto> GetDocumentStatsAsync(CancellationToken ct);
 }
