@@ -18,6 +18,8 @@ public class AppDbContext : DbContext
     public DbSet<RefreshToken>  RefreshTokens  { get; set; }
     public DbSet<FraudScenario> FraudScenarios { get; set; }
     public DbSet<FraudAttempt>  FraudAttempts  { get; set; }
+    public DbSet<Branch>        Branches       { get; set; }
+    public DbSet<Position>      Positions      { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -74,6 +76,30 @@ public class AppDbContext : DbContext
             .HasOne(a => a.User)
             .WithMany()
             .HasForeignKey(a => a.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        #endregion
+
+        #region Branch + Position configuration
+
+        modelBuilder.Entity<Branch>()
+            .HasIndex(b => b.Code)
+            .IsUnique();
+
+        modelBuilder.Entity<Position>()
+            .HasIndex(p => p.Code)
+            .IsUnique();
+
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Branch)
+            .WithMany(b => b.Users)
+            .HasForeignKey(u => u.BranchId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Position)
+            .WithMany(p => p.Users)
+            .HasForeignKey(u => u.PositionId)
             .OnDelete(DeleteBehavior.Restrict);
 
         #endregion

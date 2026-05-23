@@ -10,5 +10,9 @@ public record UserResponse(
     EnumRole Role,
     bool     IsActive,
     string?  PhoneNumber,
-    DateTime CreatedAt
+    DateTime CreatedAt,
+    long?    BranchId,
+    string?  BranchName,
+    long?    PositionId,
+    string?  PositionName
 );

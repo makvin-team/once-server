@@ -29,12 +29,30 @@ public class UserService(AppDbContext dbContext, IPasswordHasher passwordHasher)
         if (filter.IsActive.HasValue)
             query = query.Where(u => u.IsActive == filter.IsActive.Value);
 
+        if (filter.BranchId.HasValue)
+            query = query.Where(u => u.BranchId == filter.BranchId.Value);
+
+        if (filter.PositionId.HasValue)
+            query = query.Where(u => u.PositionId == filter.PositionId.Value);
+
         var totalCount = await query.CountAsync(ct);
         var items = await query
             .OrderBy(u => u.Id)
             .Skip(filter.Skip)
             .Take(filter.PageSize)
-            .Select(u => MapToResponse(u))
+            .Select(u => new UserResponse(
+                u.Id,
+                u.Username,
+                u.FirstName,
+                u.LastName,
+                u.Role,
+                u.IsActive,
+                u.PhoneNumber,
+                u.CreatedAt,
+                u.BranchId,
+                u.Branch != null ? u.Branch.Name : null,
+                u.PositionId,
+                u.Position != null ? u.Position.Name : null))
             .ToListAsync(ct);
 
         return Result<PagedList<UserResponse>>.Success(
@@ -46,7 +64,19 @@ public class UserService(AppDbContext dbContext, IPasswordHasher passwordHasher)
         var user = await dbContext.Users
             .AsNoTracking()
             .Where(u => u.Id == id && !u.IsDeleted)
-            .Select(u => MapToResponse(u))
+            .Select(u => new UserResponse(
+                u.Id,
+                u.Username,
+                u.FirstName,
+                u.LastName,
+                u.Role,
+                u.IsActive,
+                u.PhoneNumber,
+                u.CreatedAt,
+                u.BranchId,
+                u.Branch != null ? u.Branch.Name : null,
+                u.PositionId,
+                u.Position != null ? u.Position.Name : null))
             .SingleOrDefaultAsync(ct);
 
         if (user is null) return UserErrors.NotFound;
@@ -71,13 +101,15 @@ public class UserService(AppDbContext dbContext, IPasswordHasher passwordHasher)
             LastName     = request.LastName,
             Role         = request.Role,
             IsActive     = true,
-            PhoneNumber  = request.PhoneNumber
+            PhoneNumber  = request.PhoneNumber,
+            BranchId     = request.BranchId,
+            PositionId   = request.PositionId
         };
 
         dbContext.Users.Add(user);
         await dbContext.SaveChangesAsync(ct);
 
-        return MapToResponse(user);
+        return await FetchUserResponseAsync(user.Id, ct);
     }
 
     public async Task<Result<UserResponse>> UpdateAsync(
@@ -95,9 +127,12 @@ public class UserService(AppDbContext dbContext, IPasswordHasher passwordHasher)
         user.Role        = request.Role;
         user.IsActive    = request.IsActive;
         user.PhoneNumber = request.PhoneNumber;
+        user.BranchId    = request.BranchId;
+        user.PositionId  = request.PositionId;
 
         await dbContext.SaveChangesAsync(ct);
-        return MapToResponse(user);
+
+        return await FetchUserResponseAsync(user.Id, ct);
     }
 
     public async Task<Result> DeleteAsync(long id, CancellationToken ct = default)
@@ -113,13 +148,22 @@ public class UserService(AppDbContext dbContext, IPasswordHasher passwordHasher)
         return Result.Success();
     }
 
-    private static UserResponse MapToResponse(User u) => new(
-        u.Id,
-        u.Username,
-        u.FirstName,
-        u.LastName,
-        u.Role,
-        u.IsActive,
-        u.PhoneNumber,
-        u.CreatedAt);
+    private async Task<UserResponse> FetchUserResponseAsync(long id, CancellationToken ct) =>
+        await dbContext.Users
+            .AsNoTracking()
+            .Where(u => u.Id == id)
+            .Select(u => new UserResponse(
+                u.Id,
+                u.Username,
+                u.FirstName,
+                u.LastName,
+                u.Role,
+                u.IsActive,
+                u.PhoneNumber,
+                u.CreatedAt,
+                u.BranchId,
+                u.Branch != null ? u.Branch.Name : null,
+                u.PositionId,
+                u.Position != null ? u.Position.Name : null))
+            .SingleAsync(ct);
 }
