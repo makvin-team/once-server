@@ -1,5 +1,6 @@
 ﻿using Once.Domain.Entities;
 using Once.Domain.Entities.Common;
+using Once.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Once.Infrastructure.Persistence;
@@ -13,8 +14,10 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<User>         Users         { get; set; }
-    public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<User>          Users          { get; set; }
+    public DbSet<RefreshToken>  RefreshTokens  { get; set; }
+    public DbSet<FraudScenario> FraudScenarios { get; set; }
+    public DbSet<FraudAttempt>  FraudAttempts  { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -56,6 +59,22 @@ public class AppDbContext : DbContext
                 .Entity(helperType.ClrType)
                 .HasKey(nameof(ReferenceModelBase<long>.Id));
         }
+
+        #endregion
+
+        #region FraudAttempt configuration
+
+        modelBuilder.Entity<FraudAttempt>()
+            .HasOne(a => a.Scenario)
+            .WithMany(s => s.Attempts)
+            .HasForeignKey(a => a.ScenarioId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<FraudAttempt>()
+            .HasOne(a => a.User)
+            .WithMany()
+            .HasForeignKey(a => a.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         #endregion
 
