@@ -1,6 +1,7 @@
 ﻿using Once.Application;
 using Once.Infrastructure.Authentication;
 using Once.Infrastructure.Extensions;
+using Once.Infrastructure.Extensions.Seed;
 using Once.Infrastructure.Persistence;
 using Hangfire;
 using Hangfire.PostgreSql;
@@ -280,5 +281,6 @@ public static class Dependencies
         }
 
         await dbContext.SeedAsync();
+        await dbContext.SeedFraudScenariosAsync();
     }
 }

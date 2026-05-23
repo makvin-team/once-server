@@ -62,7 +62,7 @@ docker run -d --name once-server-api --restart unless-stopped \
 
 ## Dockerfile note
 
-The original Dockerfile pointed at `harbor.edcom.uz/internal/dotnet/*`
+The original Dockerfile pointed at `harbor.once.uz/internal/dotnet/*`
 (unreachable from GitHub-hosted runners) and `Guarantee.*` project names
 (repo has since been renamed to `Once.*`). It now uses public
 `mcr.microsoft.com/dotnet/*` images. Keep `Dockerfile.harbor` separately

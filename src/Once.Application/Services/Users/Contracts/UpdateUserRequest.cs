@@ -8,5 +8,7 @@ public record UpdateUserRequest(
     string   LastName,
     EnumRole Role,
     bool     IsActive,
-    string?  PhoneNumber
+    string?  PhoneNumber,
+    long?    BranchId,
+    long?    PositionId
 );
