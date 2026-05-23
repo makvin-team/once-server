@@ -13,8 +13,9 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<User>         Users         { get; set; }
-    public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<User>           Users           { get; set; }
+    public DbSet<RefreshToken>   RefreshTokens   { get; set; }
+    public DbSet<AiConversation> AiConversations { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -73,6 +74,20 @@ public class AppDbContext : DbContext
             .HasOne(rt => rt.User)
             .WithMany(u => u.RefreshTokens)
             .HasForeignKey(rt => rt.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        #endregion
+
+        #region AiConversation configuration
+
+        modelBuilder.Entity<AiConversation>()
+            .HasIndex(c => c.ConversationId)
+            .IsUnique();
+
+        modelBuilder.Entity<AiConversation>()
+            .HasOne(c => c.Owner)
+            .WithMany()
+            .HasForeignKey(c => c.OwnerUserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         #endregion
