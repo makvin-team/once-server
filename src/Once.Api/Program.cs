@@ -17,7 +17,7 @@ builder
 builder.Services
     .ConfigureHangfire(builder.Configuration)
     .ConfigureJobs()
-    .AddInfrastructureServices()
+    .AddInfrastructureServices(builder.Configuration)
     .AddApplicationServices()
     .ConfigureServices()
     .ConfigureAuthentication()
