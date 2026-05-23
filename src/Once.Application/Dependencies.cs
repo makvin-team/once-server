@@ -5,6 +5,7 @@ using Once.Application.Services.Branches;
 using Once.Application.Services.FraudAttempts;
 using Once.Application.Services.FraudScenarios;
 using Once.Application.Services.Positions;
+using Once.Application.Services.Knowledge;
 using Once.Application.Services.Users;
 
 namespace Once.Application;
@@ -20,6 +21,7 @@ public static class Dependencies
                 services.AddScoped<IFraudAttemptService, FraudAttemptService>();
                 services.AddScoped<IBranchService, BranchService>();
                 services.AddScoped<IPositionService, PositionService>();
+                services.AddScoped<IKnowledgeService, KnowledgeService>();
                 return services;
         }
 }
