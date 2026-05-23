@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Once.Application.Services.AiAssistant;
 using Once.Application.Services.Auth;
 using Once.Application.Services.Users;
 
@@ -10,6 +11,7 @@ public static class Dependencies
     {
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IAiAssistantService, AiAssistantService>();
         return services;
     }
 }
