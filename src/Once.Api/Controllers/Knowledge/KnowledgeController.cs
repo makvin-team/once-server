@@ -12,7 +12,7 @@ public class KnowledgeController(IKnowledgeService knowledgeService) : Authorize
 {
     /// <summary>Uploads one document into the knowledge_base collection.</summary>
     [HttpPost("documents")]
-    public async Task<IResult> UploadAsync([FromForm] IFormFile file, CancellationToken ct)
+    public async Task<IResult> UploadAsync(IFormFile file, CancellationToken ct)
     {
         await using var stream = file.OpenReadStream();
         var result = await knowledgeService.UploadAsync(stream, file.FileName, file.ContentType, ct);
