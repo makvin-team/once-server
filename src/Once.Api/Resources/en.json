@@ -1,0 +1,33 @@
+{
+  "AgreementUser.NotFound": "No agreement record was found for this user.",
+  "AgreementUser.AlreadyMadeAgreementDecision": "Your decision for this agreement has already been recorded earlier.",
+  "AgreementUser.DecisionOutOfTurn": "It is not yet your turn. Please wait for previous employees to make their decisions.",
+  "AgreementUser.InvalidPkcs7Base64": "The digital signature data is invalid or in an incorrect format.",
+
+  "Bank.NotFound": "The specified bank does not exist.",
+  "Bank.AlreadyExists": "This bank has already been added.",
+  "Bank.BankPermissionDenied": "The bank identifier cannot be negative or equal to zero.",
+
+  "BankLimit.NotFound": "No limit information found for this bank and guarantee type.",
+  "BankLimit.BankNotFound": "The specified bank does not exist.",
+  "BankLimit.NotEnoughLimitToReduce": "The bank limit is insufficient to complete this request.",
+
+  "Journal.DebitOrCreditNegative": "Debit and credit values cannot be negative.",
+  "Journal.InvalidDebitCreditCombination": "Both debit and credit amounts cannot be filled at the same time.",
+  "Journal.JournalEntriesNotBalanced": "Total debit and credit amounts must be equal.",
+  "Journal.JournalEntryNotFound": "The specified account was not found or does not exist in the system.",
+
+  "Document.NotFound": "The specified document does not exist.",
+  "Document.DocumentArchived": "This document has been archived.",
+  "Document.DocumentFileLocked": "This document is locked.",
+  "Document.RejectReasonNotProvided": "The rejection reason was not provided.",
+
+  "DocumentSignature.FileSaveStorageError": "Failed to save the document file.",
+  "DocumentSignature.InvalidPkcs7Base64": "The digital signature data is invalid or in an incorrect format.",
+  "DocumentSignature.InternalServerError": "Failed to connect to the e-signature server.",
+
+  "Registry.NotFound": "Registry file not found.",
+
+  "Scoring.NotCalculatedYet": "Scoring is in progress",
+  "Scoring.LoanInfoCouldNotBeUpdated": "Could not update loan id and GRK id"
+}

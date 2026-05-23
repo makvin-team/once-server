@@ -1,0 +1,33 @@
+{
+  "AgreementUser.NotFound": "Для данного пользователя не найдено соглашение.",
+  "AgreementUser.AlreadyMadeAgreementDecision": "Ваше решение по этому соглашению уже зарегистрировано ранее.",
+  "AgreementUser.DecisionOutOfTurn": "Ваш черёд ещё не наступил. Пожалуйста, дождитесь решения предыдущих сотрудников.",
+  "AgreementUser.InvalidPkcs7Base64": "Данные электронной подписи недействительны или имеют неверный формат.",
+
+  "Bank.NotFound": "Такой банк не найден.",
+  "Bank.AlreadyExists": "Этот банк уже был добавлен ранее.",
+  "Bank.BankPermissionDenied": "Идентификатор банка не может быть отрицательным или равным нулю.",
+
+  "BankLimit.NotFound": "Информация о лимите для этого банка по данному виду гарантии не найдена.",
+  "BankLimit.BankNotFound": "Такой банк не найден.",
+  "BankLimit.NotEnoughLimitToReduce": "Недостаточно лимита банка для выполнения запроса.",
+
+  "Journal.DebitOrCreditNegative": "Значения дебета и кредита не могут быть отрицательными.",
+  "Journal.InvalidDebitCreditCombination": "Обе суммы — дебет и кредит — не могут быть заполнены одновременно.",
+  "Journal.JournalEntriesNotBalanced": "Общая сумма дебета и кредита должна быть равна.",
+  "Journal.JournalEntryNotFound": "Указанный счёт не найден или отсутствует в системе.",
+
+  "Document.NotFound": "Документ не найден.",
+  "Document.DocumentArchived": "Этот документ архивирован.",
+  "Document.DocumentFileLocked": "Этот документ заблокирован.",
+  "Document.RejectReasonNotProvided": "Причина отклонения не указана.",
+
+  "DocumentSignature.FileSaveStorageError": "Не удалось сохранить файл документа.",
+  "DocumentSignature.InvalidPkcs7Base64": "Данные электронной подписи недействительны или имеют неверный формат.",
+  "DocumentSignature.InternalServerError": "Не удалось подключиться к серверу электронной подписи.",
+
+  "Registry.NotFound": "Файл реестра не найден.",
+
+  "Scoring.NotCalculatedYet": "Скоринг рассчитывается",
+  "Scoring.LoanInfoCouldNotBeUpdated": "Не удалось обновить кредит id и GRK id"
+}

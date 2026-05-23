@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [ ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "codebase-memory-mcp"
+  ],
+  "enabledPlugins": {
+    "telegram@claude-plugins-official": true
+  }
+}

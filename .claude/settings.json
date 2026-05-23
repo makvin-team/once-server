@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet *)",
+      "Bash(npm *)",
+      "Edit(once-server/**)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(dotnet ef database drop *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit(once-server/**)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd once-server && dotnet build --no-restore -q 2>&1 | tail -3"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash /c/Users/navitas/.claude/statusline-command.sh"
+  },
+  "plansDirectory": ".claude/plans",
+  "autoMemoryDirectory": ".claude/memory",
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
+  }
+}

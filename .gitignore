@@ -1,0 +1,74 @@
+# ── IDE ──────────────────────────────────────────────────────────────────────
+.idea/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.DotSettings.user
+
+# ── Build output ──────────────────────────────────────────────────────────────
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+artifacts/
+publish/
+BenchmarkDotNet.Artifacts/
+
+# ── .NET / NuGet ──────────────────────────────────────────────────────────────
+project.lock.json
+project.fragment.lock.json
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+# ── Secrets & environment ─────────────────────────────────────────────────────
+NuGet.config
+
+# ── Generated docs ────────────────────────────────────────────────────────────
+*.xml
+!Directory.Build.props
+
+# ── Test results ──────────────────────────────────────────────────────────────
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+TestResult.xml
+nunit-*.xml
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+OpenCover/
+
+# ── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Misc ─────────────────────────────────────────────────────────────────────
+*.tmp
+*.bak
+*.swp
+*~
+*.binlog
+.localhistory/
+MigrationBackup/
+.mfractor/
+
+# ── Project-specific ─────────────────────────────────────────────────────────
+cicd/
+launchSettings.json
+
+
+.env

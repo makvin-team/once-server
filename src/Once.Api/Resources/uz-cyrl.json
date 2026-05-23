@@ -1,0 +1,33 @@
+{
+  "AgreementUser.NotFound": "Ушбу фойдаланувчи учун келишув ёзуви топилмади.",
+  "AgreementUser.AlreadyMadeAgreementDecision": "Сизнинг қарорингиз ушбу келишув бўйича аввалроқ қайд этилган.",
+  "AgreementUser.DecisionOutOfTurn": "Сизнинг навбатингиз ҳали келмаган. Илтимос, аввалги ходимларнинг қарорини кутинг.",
+  "AgreementUser.InvalidPkcs7Base64": "Электрон имзо маълумотлари яроқсиз ёки нотўғри форматда юборилган.",
+
+  "Bank.NotFound": "Бундай банк мавжуд эмас.",
+  "Bank.AlreadyExists": "Бу банк аввал қўшилган.",
+  "Bank.BankPermissionDenied": "Банк идентификатори манфий ёки 0 га тенг бўлмаслиги керак.",
+
+  "BankLimit.NotFound": "Ушбу банк учун кафолат туридаги лимит маълумотлари топилмади.",
+  "BankLimit.BankNotFound": "Бундай банк мавжуд эмас.",
+  "BankLimit.NotEnoughLimitToReduce": "Сўровни бажариш учун банк лимити етарли эмас.",
+
+  "Journal.DebitOrCreditNegative": "Дебет ва кредит қийматлари манфий бўлиши мумкин эмас.",
+  "Journal.InvalidDebitCreditCombination": "Дебет ва кредит қийматларини бир вақтда киритиш мумкин эмас.",
+  "Journal.JournalEntriesNotBalanced": "Жами дебет ва кредит суммалари тенг бўлиши керак.",
+  "Journal.JournalEntryNotFound": "Киритилган ҳисоб топилмади ёки тизимда мавжуд эмас.",
+
+  "Document.NotFound": "Бундай ҳужжат мавжуд эмас.",
+  "Document.DocumentArchived": "Бу ҳужжат архивланган.",
+  "Document.DocumentFileLocked": "Бу ҳужжат блокланган.",
+  "Document.RejectReasonNotProvided": "Рад этиш сабаби кўрсатилмаган.",
+
+  "DocumentSignature.FileSaveStorageError": "Ҳужжат файлини сақлаб бўлмади.",
+  "DocumentSignature.InvalidPkcs7Base64": "Электрон имзо маълумотлари яроқсиз ёки нотўғри форматда юборилган.",
+  "DocumentSignature.InternalServerError": "Э-имзо серверига уланиб бўлмади.",
+
+  "Registry.NotFound": "Реестр файли топилмади.",
+
+  "Scoring.NotCalculatedYet": "Скоринг ҳисобланмоқда",
+  "Scoring.LoanInfoCouldNotBeUpdated": "Банк томонидан бериладиган кредит id ва GRK id ни янгилаб бўлмади"
+}

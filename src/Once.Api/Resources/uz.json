@@ -1,0 +1,47 @@
+{
+  "AgreementUser.NotFound": "Ushbu foydalanuvchi uchun kelishuv yozuvi topilmadi.",
+  "AgreementUser.AlreadyMadeAgreementDecision": "Ushbu kelishuv bo‘yicha sizning qaroringiz avvalroq qayd etilgan.",
+  "AgreementUser.DecisionOutOfTurn": "Sizning navbatingiz hali kelmagan. Avvalgi hodimlar qarorini kuting.",
+  "AgreementUser.InvalidPkcs7Base64": "Elektron imzo ma’lumotlari yaroqsiz yoki noto‘g‘ri formatda yuborilgan.",
+
+  "Bank.NotFound": "Bunday bank mavjud emas.",
+  "Bank.AlreadyExists": "Bu bank allaqachon qo'shilgan.",
+  "Bank.BankPermissionDenied": "Bank ID(identifikator)si manfiy yoki 0 ga teng bo'lmasligi kerak.",
+
+  "BankLimit.NotFound": "Ushbu bank uchun kafolat turida limit ma’lumotlari topilmadi.",
+  "BankLimit.BankNotFound": "Bunday bank mavjud emas.",
+  "BankLimit.NotEnoughLimitToReduce": "So‘rovni bajarish uchun bank limiti yetarli emas.",
+
+  "Journal.DebitOrCreditNegative": "Xarajatlar va daromadlar qiymatlari manfiy bo‘lishi mumkin emas.",
+  "Journal.InvalidDebitCreditCombination": "",
+  "Journal.JournalEntriesNotBalanced": "Umumiy xarajatlar summasi va daromadlar summasi teng bo‘lishi kerak.",
+  "Journal.JournalEntryNotFound": "Kiritilgan akkount topilmadi yoki tizimda mavjud emas.",
+
+  "Document.NotFound": "Bunday hujjat mavjud emas.",
+  "Document.DocumentArchived": "Bu hujjat arxivlangan.",
+  "Document.DocumentFileLocked": "Bu hujjat bloklangan.",
+  "Document.RejectReasonNotProvided": "Rad etilish sababi ko'rsatilmagan.",
+
+  "DocumentSignature.FileSaveStorageError": "Hujjatni yuklab bo'lmadi'",
+  "DocumentSignature.InvalidPkcs7Base64": "Elektron imzo ma’lumotlari yaroqsiz yoki noto‘g‘ri formatda yuborilgan.",
+  "DocumentSignature.InternalServerError": "E-Imzo serveri bilan bog'lanib bo'lmadi.",
+
+  "Registry.NotFound": "Reestr fayli topilmadi.",
+  "Registry.BankPermissionDenied": "",
+
+  "Scoring.NotFound": "",
+  "Scoring.NotUpdated": "",
+  "Scoring.ScoringStatusShouldBeTechnicalError": "",
+  "Scoring.BankPermissionDenied": "",
+  "Scoring.InvalidKatmBase64": "",
+  "Scoring.ScoringRequstDescriptionShouldBeProvided": "",
+  "Scoring.InvalidScoringRequstDescription": "",
+  "Scoring.AlreadyExistApplication": "",
+  "Scoring.ScoringAndKatmTinShouldBeEqual": "",
+  "Scoring.NotCalculatedYet": "Skoring hisoblanmoqda",
+  "Scoring.LoanInfoCouldNotBeUpdated": "Bank tomonidan beriladigan kredit id va GRK id ni yangilab bo'lmadi",
+
+  "TaxFinancialAnalysis.FinancialBalanceNotFound": "",
+  "TaxFinancialAnalysis.FinancialReportNotFound": "",
+  "TaxFinancialAnalysis.ErrorHappenedWhileAnalyzingForm1AndForm2": ""
+}
