@@ -22,6 +22,10 @@ public static class Dependencies
         {
             client.BaseAddress = new Uri(aiOptions.BaseUrl);
             client.DefaultRequestHeaders.Add("X-API-Key", aiOptions.ApiKey);
+            // ai-backend is reached through an ngrok tunnel whose free tier serves
+            // an HTML browser-warning interstitial instead of proxying. This header
+            // skips it so we get the real JSON response back.
+            client.DefaultRequestHeaders.Add("ngrok-skip-browser-warning", "true");
             client.Timeout = TimeSpan.FromMinutes(5);
         });
 
