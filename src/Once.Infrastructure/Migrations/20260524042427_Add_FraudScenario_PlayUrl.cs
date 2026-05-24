@@ -11,38 +11,6 @@ namespace Once.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "context",
-                table: "fraud_scenarios");
-
-            migrationBuilder.DropColumn(
-                name: "decision_options",
-                table: "fraud_scenarios");
-
-            migrationBuilder.DropColumn(
-                name: "evidence",
-                table: "fraud_scenarios");
-
-            migrationBuilder.DropColumn(
-                name: "explanation",
-                table: "fraud_scenarios");
-
-            migrationBuilder.DropColumn(
-                name: "recommendation",
-                table: "fraud_scenarios");
-
-            migrationBuilder.DropColumn(
-                name: "red_flag_options",
-                table: "fraud_scenarios");
-
-            migrationBuilder.DropColumn(
-                name: "skills",
-                table: "fraud_scenarios");
-
-            migrationBuilder.DropColumn(
-                name: "task",
-                table: "fraud_scenarios");
-
             migrationBuilder.AlterColumn<MultiLanguageField>(
                 name: "title",
                 table: "fraud_scenarios",
@@ -106,13 +74,6 @@ namespace Once.Infrastructure.Migrations
                 nullable: false,
                 oldClrType: typeof(MultiLanguageField),
                 oldType: "jsonb");
-
-            migrationBuilder.AddColumn<string>(
-                name: "context",
-                table: "fraud_scenarios",
-                type: "text",
-                nullable: false,
-                defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
                 name: "decision_options",
