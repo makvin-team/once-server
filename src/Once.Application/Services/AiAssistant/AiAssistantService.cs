@@ -151,6 +151,21 @@ public sealed class AiAssistantService(
         return Result.Success();
     }
 
+    // Thin passthroughs to ai-backend for the citation document viewer. No
+    // ownership check: cited regulatory acts / uploaded files are shared
+    // reference material. The controller copies the upstream response.
+    public Task<HttpResponseMessage> GetRegulatoryDocumentAsync(Guid documentId, CancellationToken ct)
+        => broker.GetRegulatoryDocumentAsync(documentId, ct);
+
+    public Task<HttpResponseMessage> GetRegulatoryDocumentSiblingsAsync(Guid documentId, CancellationToken ct)
+        => broker.GetRegulatoryDocumentSiblingsAsync(documentId, ct);
+
+    public Task<HttpResponseMessage> GetRegulatoryDocumentContentAsync(Guid documentId, CancellationToken ct)
+        => broker.GetRegulatoryDocumentContentAsync(documentId, ct);
+
+    public Task<HttpResponseMessage> GetKnowledgeFileContentAsync(string filename, CancellationToken ct)
+        => broker.GetKnowledgeFileContentAsync(filename, ct);
+
     private async Task<bool> OwnsAsync(long userId, Guid conversationId, CancellationToken ct) =>
         await dbContext.AiConversations
             .AsNoTracking()

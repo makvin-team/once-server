@@ -76,4 +76,23 @@ public sealed class AiBackendBroker(HttpClient httpClient) : IAiBackendBroker
     public async Task<AiDocumentStatsDto> GetDocumentStatsAsync(CancellationToken ct)
         => await httpClient.GetFromJsonAsync<AiDocumentStatsDto>("documents/stats", Json, ct)
            ?? new AiDocumentStatsDto();
+
+    public Task<HttpResponseMessage> GetRegulatoryDocumentAsync(Guid documentId, CancellationToken ct)
+        => GetPassthroughAsync($"regulatory/documents/{documentId}", ct);
+
+    public Task<HttpResponseMessage> GetRegulatoryDocumentSiblingsAsync(Guid documentId, CancellationToken ct)
+        => GetPassthroughAsync($"regulatory/documents/{documentId}/siblings", ct);
+
+    public Task<HttpResponseMessage> GetRegulatoryDocumentContentAsync(Guid documentId, CancellationToken ct)
+        => GetPassthroughAsync($"regulatory/documents/{documentId}/content", ct);
+
+    public Task<HttpResponseMessage> GetKnowledgeFileContentAsync(string filename, CancellationToken ct)
+        => GetPassthroughAsync($"documents/content/{Uri.EscapeDataString(filename)}", ct);
+
+    // ResponseHeadersRead so document bodies stream rather than buffer in memory.
+    private Task<HttpResponseMessage> GetPassthroughAsync(string url, CancellationToken ct)
+    {
+        var message = new HttpRequestMessage(HttpMethod.Get, url);
+        return httpClient.SendAsync(message, HttpCompletionOption.ResponseHeadersRead, ct);
+    }
 }
