@@ -7,9 +7,11 @@ namespace Once.Infrastructure.Brokers.AiBackend;
 /// <summary>Body sent to ai-backend POST /chat/stream.</summary>
 public sealed record AiChatStreamRequest
 {
-    public Guid?   ConversationId { get; init; }
-    public string  Message        { get; init; } = string.Empty;
-    public string  ExternalUserId { get; init; } = string.Empty;
+    public Guid?   ConversationId         { get; init; }
+    public string  Message                { get; init; } = string.Empty;
+    public string  ExternalUserId         { get; init; } = string.Empty;
+    /// <summary>Appended to ai-backend's system prompt for this turn.</summary>
+    public string? AdditionalInstructions { get; init; }
 }
 
 // ----- Inbound -----

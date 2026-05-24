@@ -13,6 +13,17 @@ public sealed class AiAssistantService(
     AppDbContext dbContext,
     IAiBackendBroker broker) : IAiAssistantService
 {
+    // Appended to ai-backend's system prompt on every learner turn so the
+    // assistant behaves like a mentor — greeting and chatting naturally instead
+    // of answering "salom" with a "nothing found in the knowledge base" miss.
+    private const string LearnerMentorInstructions =
+        "You are a supportive learning mentor for a bank employee. For greetings, " +
+        "thanks, or small talk (e.g. \"salom\", \"rahmat\"), reply warmly and " +
+        "conversationally and invite a question — do NOT search the knowledge base " +
+        "or say that nothing was found. For substantive questions, use your tools " +
+        "and stay grounded in the retrieved content. Keep a friendly, encouraging " +
+        "tone and always reply in the language of the user's message.";
+
     public async IAsyncEnumerable<string> StreamChatAsync(
         long userId, AiChatRequest request, [EnumeratorCancellation] CancellationToken ct)
     {
@@ -33,9 +44,10 @@ public sealed class AiAssistantService(
 
         var upstream = new AiChatStreamRequest
         {
-            ConversationId = request.ConversationId,
-            Message        = request.Message,
-            ExternalUserId = userId.ToString(),
+            ConversationId         = request.ConversationId,
+            Message                = request.Message,
+            ExternalUserId         = userId.ToString(),
+            AdditionalInstructions = LearnerMentorInstructions,
         };
 
         HttpResponseMessage? response = null;
