@@ -3,7 +3,6 @@ using Once.Application.Services.FraudScenarios.Contracts;
 using Once.Domain.Abstractions;
 using Once.Domain.Enums;
 using Once.Infrastructure.Persistence;
-using System.Text.Json;
 
 namespace Once.Application.Services.FraudScenarios;
 
@@ -41,7 +40,8 @@ public class FraudScenarioService(AppDbContext dbContext) : IFraudScenarioServic
         var result = scenarios.Select(s =>
         {
             statMap.TryGetValue(s.Id, out var stat);
-            return MapToResponse(s, stat.Best == 0 && !statMap.ContainsKey(s.Id) ? null : (int?)stat.Best,
+            return MapToResponse(s,
+                stat.Best == 0 && !statMap.ContainsKey(s.Id) ? null : (int?)stat.Best,
                 statMap.ContainsKey(s.Id) ? stat.Status : null);
         }).ToList();
 
@@ -81,7 +81,7 @@ public class FraudScenarioService(AppDbContext dbContext) : IFraudScenarioServic
 
     private static FraudScenarioResponse MapToResponse(
         Domain.Entities.FraudScenario s,
-        int?   previousBest,
+        int?    previousBest,
         string? initialStatus)
     {
         return new FraudScenarioResponse
@@ -97,17 +97,10 @@ public class FraudScenarioService(AppDbContext dbContext) : IFraudScenarioServic
             AverageScore     = s.AverageScore,
             AttemptsCount    = s.AttemptsCount,
             UpdatedAt        = (s.UpdatedAt ?? s.CreatedAt).ToString("yyyy-MM-dd"),
-            Skills           = SafeDeserialize<List<string>>(s.Skills)         ?? new(),
-            Context          = s.Context,
             LearnerRole      = s.LearnerRole,
-            Task             = s.Task,
-            Evidence         = SafeDeserializeRaw(s.Evidence),
-            RedFlagOptions   = SafeDeserialize<List<RedFlagOptionDto>>(s.RedFlagOptions)  ?? new(),
-            DecisionOptions  = SafeDeserialize<List<DecisionOptionDto>>(s.DecisionOptions) ?? new(),
-            Explanation      = s.Explanation,
-            Recommendation   = s.Recommendation,
             PreviousBest     = previousBest,
             InitialStatus    = initialStatus,
+            PlayUrl          = s.PlayUrl,
         };
     }
 
@@ -136,24 +129,5 @@ public class FraudScenarioService(AppDbContext dbContext) : IFraudScenarioServic
         FraudSimRisk.Medium => "medium",
         FraudSimRisk.High   => "high",
         _                   => r.ToString().ToLower(),
-    };
-
-    private static T? SafeDeserialize<T>(string json) where T : class
-    {
-        if (string.IsNullOrWhiteSpace(json)) return null;
-        try { return JsonSerializer.Deserialize<T>(json, _jsonOptions); }
-        catch { return null; }
-    }
-
-    private static object SafeDeserializeRaw(string json)
-    {
-        if (string.IsNullOrWhiteSpace(json)) return new object();
-        try { return JsonSerializer.Deserialize<JsonElement>(json, _jsonOptions); }
-        catch { return new object(); }
-    }
-
-    private static readonly JsonSerializerOptions _jsonOptions = new()
-    {
-        PropertyNameCaseInsensitive = true,
     };
 }
