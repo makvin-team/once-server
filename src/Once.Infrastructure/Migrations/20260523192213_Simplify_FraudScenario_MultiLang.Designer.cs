@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Once.Domain.Entities.Common;
@@ -12,9 +13,11 @@ using Once.Infrastructure.Persistence;
 namespace Once.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260523192213_Simplify_FraudScenario_MultiLang")]
+    partial class Simplify_FraudScenario_MultiLang
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,56 +25,6 @@ namespace Once.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Once.Domain.Entities.AiConversation", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<Guid>("ConversationId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("conversation_id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<long?>("CreatedBy")
-                        .HasColumnType("bigint")
-                        .HasColumnName("created_by");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_deleted");
-
-                    b.Property<long>("OwnerUserId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("owner_user_id");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("updated_at");
-
-                    b.Property<long?>("UpdatedBy")
-                        .HasColumnType("bigint")
-                        .HasColumnName("updated_by");
-
-                    b.HasKey("Id")
-                        .HasName("pk_ai_conversations");
-
-                    b.HasIndex("ConversationId")
-                        .IsUnique()
-                        .HasDatabaseName("ix_ai_conversations_conversation_id");
-
-                    b.HasIndex("OwnerUserId")
-                        .HasDatabaseName("ix_ai_conversations_owner_user_id");
-
-                    b.ToTable("ai_conversations", (string)null);
-                });
 
             modelBuilder.Entity("Once.Domain.Entities.Branch", b =>
                 {
@@ -262,10 +215,6 @@ namespace Once.Infrastructure.Migrations
                     b.Property<int>("PassScore")
                         .HasColumnType("integer")
                         .HasColumnName("pass_score");
-
-                    b.Property<string>("PlayUrl")
-                        .HasColumnType("text")
-                        .HasColumnName("play_url");
 
                     b.Property<int>("RiskLevel")
                         .HasColumnType("integer")
@@ -467,18 +416,6 @@ namespace Once.Infrastructure.Migrations
                         .HasDatabaseName("ix_users_username");
 
                     b.ToTable("users", (string)null);
-                });
-
-            modelBuilder.Entity("Once.Domain.Entities.AiConversation", b =>
-                {
-                    b.HasOne("Once.Domain.Entities.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_ai_conversations_users_owner_user_id");
-
-                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Once.Domain.Entities.FraudAttempt", b =>

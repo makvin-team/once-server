@@ -1,11 +1,13 @@
+using Once.Domain.Entities.Common;
+
 namespace Once.Application.Services.FraudAttempts.Contracts;
 
 public class FraudAttemptResponse
 {
-    public long   Id             { get; set; }
-    public long   ScenarioId     { get; set; }
-    public string ScenarioTitle  { get; set; } = "";
-    public string FraudType      { get; set; } = "";
+    public long               Id             { get; set; }
+    public long               ScenarioId     { get; set; }
+    public MultiLanguageField ScenarioTitle  { get; set; } = "";
+    public string             FraudType      { get; set; } = "";
     public int    Score          { get; set; }
     public bool   Passed         { get; set; }
     public int    DetectedFlags  { get; set; }

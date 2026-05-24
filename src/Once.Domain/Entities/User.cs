@@ -23,6 +23,6 @@ public class User : AuditableModelBase<long>
     public long? PositionId { get; set; }
     [ForeignKey(nameof(PositionId))]
     public Position? Position { get; set; } = null;
-
+    
     public ICollection<RefreshToken> RefreshTokens { get; set; } = [];
 }
